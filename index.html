@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - &lt;Project 7&gt; Vue.js Piano</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="app">
+  <div class="audioplayer" v-for="s in sounddata">
+    <audio v-bind:data-num="s.number">
+      <source v-bind:src="s.url" type="audio/ogg"/>
+    </audio>
+  </div>
+  <div class="center_box">
+    <h2>Vue.js Piano Project 7</h2>
+    <div class="keyboard">
+      <div class="pianokey" v-for="s in display_keys">
+        <div class="white" v-if="s.type == 'white'" v-on:click="addnote(s.num)" v-bind:class="get_current_highlight(s.num, s.key) ? 'playing' : ''">
+          <div class="label">{{ String.fromCharCode(s.key) }}</div>
+        </div>
+        <div class="black" v-if="s.type == 'black'" v-on:click="addnote(s.num)" v-bind:class="get_current_highlight(s.num, s.key) ? 'playing' : ''">
+          <div class="label">{{ String.fromCharCode(s.key) }}</div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="controls">
+      <ul class="notes_list" v-if="notes.length &gt; 0">
+        <li v-for="(note, id) in notes" v-bind:class="now_note_id - 1 == id ? 'playing' : ''">
+          <div class="num">{{ note.num }}</div>
+          <div class="time">{{ note.time }}</div>
+        </li>
+      </ul>
+      <button v-on:click="load_sample">Sample</button>
+      <button v-on:click="playnext(1)">Playnext</button>
+      <button v-if="playing_time &lt;= 0" v-on:click="startplay">Play<img class="play" src="https://www.flaticon.com/svg/vstatic/svg/748/748134.svg?token=exp=1611076883~hmac=cc7d31ad924540a674c2b142a076ea16" alt=""/></button>
+      <button v-if="playing_time &gt;= 1" v-on:click="stopplay">Stopplay<img class="stop" src="https://www.flaticon.com/svg/vstatic/svg/2/2914.svg?token=exp=1611076970~hmac=95868c1c7d40ee3ee55aa8237913055e" alt=""/></button>
+      <button v-if="record_time &lt;= 0" v-on:click="start_record">Record<img class="record" src="https://www.flaticon.com/svg/vstatic/svg/565/565665.svg?token=exp=1611077021~hmac=f9e125d055b6b41b80ebbc5a7c0f1c79" alt=""/></button>
+      <button v-if="record_time &gt;= 1" v-on:click="stop_record">Stoprecord<img class="stop" src="https://www.flaticon.com/svg/vstatic/svg/2/2914.svg?token=exp=1611076970~hmac=95868c1c7d40ee3ee55aa8237913055e" alt=""/></button>
+      <button v-on:click="notes = []">Clear</button>
+      <h4>{{ playing_time + record_time }}</h4>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
