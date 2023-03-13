@@ -1,4 +1,3 @@
-# Piano_VueJS
+# piano-vueJS
 
-Checkout this link:
-https://hcy71.github.io/Project-7-Piano/
+[Checkout it out!](https://hcy71.github.io/piano-vueJS/)
